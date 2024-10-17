@@ -7,6 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faBars, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
+const props = defineProps({
+    events: Array
+});
+
 const sidebarRef = ref(null);
 const sidebarIsOpen = computed(() => sidebarRef.value?.isOpen);
 
@@ -34,8 +38,7 @@ const toggleSidebarHome = () => {
     <Sidebar ref="sidebarRef" />
 
     <body>
-        <Carousel />
-        <Carousel />
+        <Carousel :events="events" />
     </body>
 
     <footer>
@@ -67,7 +70,7 @@ const toggleSidebarHome = () => {
                 <div name="connect" class=" space-y-2">
                     <p>Connect With Us</p>
                     <Link href="">
-                    <FontAwesomeIcon  class="text-xl pr-4" :style="{ color: 'white' }" :icon="faTwitter" />
+                    <FontAwesomeIcon class="text-xl pr-4" :style="{ color: 'white' }" :icon="faTwitter" />
                     </Link>
                     <Link href="">
                     <FontAwesomeIcon class="text-xl" :style="{ color: 'white' }" :icon="faInstagram" />

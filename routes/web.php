@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,9 +25,12 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-})->name('home');
+// Route::get('/', function () {
+//     return Inertia::render('Home');
+// })->name('home');
+
+Route::get('/', [EventController::class, 'index']);
+
 
 // Route::get('/home', function () {
 // })->name('home');

@@ -23,6 +23,13 @@
         "@fortawesome/free-brands-svg-icons": "^6.6.0",
         "@fortawesome/free-regular-svg-icons": "^6.6.0",
         "@fortawesome/free-solid-svg-icons": "^6.6.0",
-        "@fortawesome/vue-fontawesome": "^3.0.8"
+        "@fortawesome/vue-fontawesome": "^3.0.8",
+        "class-variance-authority": "^0.7.0",
+        "clsx": "^2.1.1",
+        "lucide-vue-next": "^0.453.0",
+        "radix-vue": "^1.9.7",
+        "tailwind-merge": "^2.5.4",
+        "tailwindcss-animate": "^1.0.7",
+        "vue-slick-carousel": "^1.0.6"
     }
 }

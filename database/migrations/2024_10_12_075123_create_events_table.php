@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image');
             $table->dateTime('date');
             $table->string('location');
-            $table->string('descrption');
+            $table->string('description');
             $table->string('link_to_post');
             $table->string('link_to_ticket');
             $table->timestamps();
