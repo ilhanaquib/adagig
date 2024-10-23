@@ -1,12 +1,12 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import Sidebar from '@/Components/Sidebar.vue';
-import Carousel from '@/Components/Carousel.vue';
-import NewCarousel from '@/Components/NewCarousel.vue';
+import Sidebar from '@/Components/AdagigComponents/Sidebar.vue';
 import { ref, computed } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faBars, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import HomeEventCarousel from '@/Components/AdagigComponents/HomeEventCarousel.vue';
+import HeaderEventCarousel from '@/Components/AdagigComponents/HeaderEventCarousel.vue';
 
 const props = defineProps({
     events: Array
@@ -27,20 +27,22 @@ const toggleSidebarHome = () => {
     <Head title="Home" />
 
 
-    <header>
-        <div class="w-full bg-black min-h-80">
-            <div v-if="!sidebarIsOpen" class="flex justify-start items-end ml-16 relative py-8">
-                <img src="/images/anjing.png" alt="logo" class="h-8 w-auto px-4">
-                <FontAwesomeIcon class="text-2xl" :style="{ color: 'white' }" :icon="faBars"
-                    @click="toggleSidebarHome" />
-            </div>
+    <header class="relative">
+        <!-- HeaderEventCarousel will be in the background -->
+        <HeaderEventCarousel />
+
+        <!-- Logo positioned on top of the carousel -->
+        <div v-if="!sidebarIsOpen" class="flex items-end h-8 w-auto px-4 absolute top-4 left-4">
+            <img src="/images/anjing.png" alt="logo" class="h-8 w-auto px-4">
+            <FontAwesomeIcon class="text-2xl" :style="{ color: 'black' }" :icon="faBars" @click="toggleSidebarHome" />
         </div>
     </header>
+
 
     <Sidebar ref="sidebarRef" />
 
     <body>
-        <NewCarousel :events="events" />
+        <HomeEventCarousel :events="events" />
     </body>
 
     <footer>

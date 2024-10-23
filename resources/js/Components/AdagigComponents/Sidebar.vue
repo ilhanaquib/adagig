@@ -39,25 +39,25 @@ defineExpose({
                     <li>
                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-700 dark:text-white"
                             href="#">
-                            <FontAwesomeIcon :style="{ color: 'white' }" :icon="faHouse" />
+                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faHouse" />
                             Home
                         </a>
                         <a href="#"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
-                            <FontAwesomeIcon :style="{ color: 'white' }" :icon="faUser" />
+                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faUser" />
                             Account
                         </a>
                         <a href="#"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
-                            <FontAwesomeIcon :style="{ color: 'white' }" :icon="faCalendar" />
+                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faCalendar" />
                             Events
                         </a>
                         <a href="#"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
-                            <FontAwesomeIcon :style="{ color: 'white' }" :icon="faCircleInfo" />
+                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faCircleInfo" />
                             About Us
                         </a>
                     </li>
