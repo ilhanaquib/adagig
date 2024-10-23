@@ -2,6 +2,7 @@
 import { Head, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
 import Carousel from '@/Components/Carousel.vue';
+import NewCarousel from '@/Components/NewCarousel.vue';
 import { ref, computed } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faBars, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
@@ -25,9 +26,10 @@ const toggleSidebarHome = () => {
 
     <Head title="Home" />
 
+
     <header>
-        <div class="container mx-auto  bg-black min-h-80">
-            <div v-if="!sidebarIsOpen" class="flex justify-left items-end ml-16 relative py-8">
+        <div class="w-full bg-black min-h-80">
+            <div v-if="!sidebarIsOpen" class="flex justify-start items-end ml-16 relative py-8">
                 <img src="/images/anjing.png" alt="logo" class="h-8 w-auto px-4">
                 <FontAwesomeIcon class="text-2xl" :style="{ color: 'white' }" :icon="faBars"
                     @click="toggleSidebarHome" />
@@ -38,13 +40,12 @@ const toggleSidebarHome = () => {
     <Sidebar ref="sidebarRef" />
 
     <body>
-        <Carousel :events="events" />
+        <NewCarousel :events="events" />
     </body>
 
     <footer>
-        <div class="container mx-auto bg-black min-h-40 flex items-center justify-between px-4">
+        <div class="w-full bg-black min-h-40 flex items-center justify-between px-4">
             <!-- Left Side Content -->
-
             <div class="text-white flex px-32">
                 <div name="sitemap" class="flex flex-col space-y-2 px-20">
                     <Link href="">Home</Link>

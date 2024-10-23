@@ -27,9 +27,9 @@
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
         "lucide-vue-next": "^0.453.0",
+        "preline": "^2.5.1",
         "radix-vue": "^1.9.7",
         "tailwind-merge": "^2.5.4",
-        "tailwindcss-animate": "^1.0.7",
-        "vue-slick-carousel": "^1.0.6"
+        "tailwindcss-animate": "^1.0.7"
     }
 }

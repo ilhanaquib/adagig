@@ -31,7 +31,7 @@ defineExpose({
                 </div>
 
                 <button type="button" class="ml-auto" @click="toggleSidebar">
-                    <FontAwesomeIcon :style="{ color: 'white' }" :icon="faClose" />
+                    <FontAwesomeIcon :style="{ color: 'black' }" :icon="faClose" />
                 </button>
             </div>
             <nav class="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
