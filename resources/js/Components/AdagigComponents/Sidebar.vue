@@ -1,9 +1,10 @@
 <script setup>
-// Import ref from Vue
 import { ref, Transition } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCircleInfo, faClose, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar, faUser } from '@fortawesome/free-regular-svg-icons';
+import { Link } from '@inertiajs/vue3'
+
 
 const isOpen = ref(false);
 
@@ -42,12 +43,12 @@ defineExpose({
                             <FontAwesomeIcon :style="{ color: 'black' }" :icon="faHouse" />
                             Home
                         </a>
-                        <a href="#"
+                        <Link href="/login"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
-                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faUser" />
-                            Account
-                        </a>
+                        <FontAwesomeIcon :style="{ color: 'black' }" :icon="faUser" />
+                        Account
+                        </Link>
                         <a href="#"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
@@ -70,7 +71,6 @@ defineExpose({
 
 
 <style scoped>
-/* The sliding-div class can be used to style the div */
 .sliding-div {
     width: 200px;
     height: 100px;

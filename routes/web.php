@@ -29,8 +29,11 @@ use Inertia\Inertia;
 //     return Inertia::render('Home');
 // })->name('home');
 
-Route::get('/', [EventController::class, 'index']);
+Route::get('/', [EventController::class, 'index'])->name('home');
+Route::get('/event/{id}', [EventController::class, 'show'])->name('event.show');
 
+Route::get('/addEvent', [EventController::class, 'addEvent'])->name('event.addEvent');
+Route::post('/submitEvent', [EventController::class, 'submitEvent'])->name('event.submitEvent');
 
 // Route::get('/home', function () {
 // })->name('home');
