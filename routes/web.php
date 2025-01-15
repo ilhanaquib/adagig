@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdaplaylistController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReleaseController;
@@ -28,13 +29,17 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('events', [EventController::class, 'index'])->name('events.index');
 
 // Releases page
-Route::get('events', [ReleaseController::class, 'index'])->name('release.index');
+Route::get('releases', [ReleaseController::class, 'index'])->name('release.index');
+
+// Adaplaylist page
+Route::get('adaplaylist', [AdaplaylistController::class, 'index'])->name('adaplaylist.index');
 
 
-// Route::get('/event/{id}', [HomeController::class, 'show'])->name('event.show');
-// Route::get('/add-event', [HomeController::class, 'addEvent'])->name('event.addEvent');
-// Route::post('/submit-event', [HomeController::class, 'submitEvent'])->name('event.submit');
-// Route::get('/map', [HomeController::class, 'map'])->name('event.map');
+// misc
+Route::get('/event/{id}', [HomeController::class, 'show'])->name('event.show');
+Route::get('/add-event', [HomeController::class, 'addEvent'])->name('event.addEvent');
+Route::post('/submit-event', [HomeController::class, 'submitEvent'])->name('event.submit');
+Route::get('/map', [HomeController::class, 'map'])->name('event.map');
 
 // Middleware
 Route::middleware([

@@ -37,59 +37,60 @@ defineExpose({
             <nav class="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
                 <ul class="space-y-1.5">
                     <li>
-                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-700 dark:text-white"
-                            href="#">
-                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faHouse" />
-                            Home
-                        </a>
+                        <Link
+                            class="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-700 dark:text-white"
+                            href="/">
+                        <FontAwesomeIcon :style="{ color: 'black' }" :icon="faHouse" />
+                        Home
+                        </Link>
                         <Link href="/login"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
                         <FontAwesomeIcon :style="{ color: 'black' }" :icon="faUser" />
                         Account
                         </Link>
-                        <a href="#"
+                        <Link href="/events"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
-                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faCalendar" />
-                            Events
-                        </a>
-                        <a href="#"
+                        <FontAwesomeIcon :style="{ color: 'black' }" :icon="faCalendar" />
+                        Events
+                        </Link>
+                        <Link href="/releases"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
-                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faMusic" />
-                            Releases
-                        </a>
-                        <a href="#"
+                        <FontAwesomeIcon :style="{ color: 'black' }" :icon="faMusic" />
+                        Releases
+                        </Link>
+                        <Link href="/adaplaylist"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
-                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faPlay" />
-                            AdaPlaylist
-                        </a>
-                        <a href="#"
+                        <FontAwesomeIcon :style="{ color: 'black' }" :icon="faPlay" />
+                        AdaPlaylist
+                        </Link>
+                        <Link href="/bands"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
-                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faGuitar" />
-                            Bands
-                        </a>
-                        <a href="#"
+                        <FontAwesomeIcon :style="{ color: 'black' }" :icon="faGuitar" />
+                        Bands
+                        </Link>
+                        <Link href="/adasembang"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
-                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faComments" />
-                            AdaSembang
-                        </a>
-                        <a href="#"
+                        <FontAwesomeIcon :style="{ color: 'black' }" :icon="faComments" />
+                        AdaSembang
+                        </Link>
+                        <Link href="/adacerita"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
-                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faNewspaper" />
-                            AdaCerita
-                        </a>
-                        <a href="#"
+                        <FontAwesomeIcon :style="{ color: 'black' }" :icon="faNewspaper" />
+                        AdaCerita
+                        </Link>
+                        <Link href="/about-us"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                             aria-expanded="true" aria-controls="users-accordion">
-                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faCircleInfo" />
-                            About Us
-                        </a>
+                        <FontAwesomeIcon :style="{ color: 'black' }" :icon="faCircleInfo" />
+                        About Us
+                        </Link>
                     </li>
                 </ul>
             </nav>
