@@ -10,7 +10,7 @@
                     class="hs-carousel-slide relative flex h-full p-6 overflow-hidden">
                     <!-- image -->
                     <div class="absolute inset-0" :style="{
-                        backgroundImage: 'url(' + event.image + ')',
+                        backgroundImage: 'url(' + event.poster + ')',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center center',
                         filter: 'blur(8px)'
@@ -19,7 +19,7 @@
 
                     <!-- info -->
                     <div class="flex  relative">
-                        <img :src="event.image" alt="" class="rounded-lg w-1/2 max-w-[200px] h-auto ml-64 mr-28" />
+                        <img :src="event.poster" alt="" class="rounded-lg w-1/2 max-w-[200px] h-auto ml-64 mr-28" />
                         <div class="flex flex-col">
                             <span class="mt-12 mb-8 text-6xl font-bold text-white transition duration-700 z-10">{{
                                 event.name }}</span>

@@ -5,11 +5,15 @@ import { ref, computed } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import HomeEventCarousel from '@/Components/AdagigComponents/HomeEventCarousel.vue';
+import HomeReleaseCarousel from '@/Components/AdagigComponents/HomeReleaseCarousel.vue';
 import HeaderEventCarousel from '@/Components/AdagigComponents/HeaderEventCarousel.vue';
+import HomeArticlesCarousel from '@/Components/AdagigComponents/HomeArticlesCarousel.vue';
+import HomeBandsCarousel from '@/Components/AdagigComponents/HomeBandsCarousel.vue';
 import Footer from '@/Components/AdagigComponents/Footer.vue';
 
 const props = defineProps({
-    events: Array
+    events: Array,
+    users: Array
 });
 
 const sidebarRef = ref(null);
@@ -38,6 +42,9 @@ const toggleSidebarHome = () => {
 
     <body>
         <HomeEventCarousel :events="events" />
+        <HomeReleaseCarousel :events="events" />
+        <HomeArticlesCarousel :events="events" />
+        <HomeBandsCarousel :events="events" />
     </body>
 
     <footer>

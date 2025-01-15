@@ -1,20 +1,11 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReleaseController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -29,15 +20,23 @@ use Inertia\Inertia;
 //     return Inertia::render('Home');
 // })->name('home');
 
-Route::get('/', [EventController::class, 'index'])->name('home');
-Route::get('/event/{id}', [EventController::class, 'show'])->name('event.show');
 
-Route::get('/addEvent', [EventController::class, 'addEvent'])->name('event.addEvent');
-Route::post('/submitEvent', [EventController::class, 'submitEvent'])->name('event.submitEvent');
+// Home page
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-// Route::get('/home', function () {
-// })->name('home');
+// Events page
+Route::get('events', [EventController::class, 'index'])->name('events.index');
 
+// Releases page
+Route::get('events', [ReleaseController::class, 'index'])->name('release.index');
+
+
+// Route::get('/event/{id}', [HomeController::class, 'show'])->name('event.show');
+// Route::get('/add-event', [HomeController::class, 'addEvent'])->name('event.addEvent');
+// Route::post('/submit-event', [HomeController::class, 'submitEvent'])->name('event.submit');
+// Route::get('/map', [HomeController::class, 'map'])->name('event.map');
+
+// Middleware
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

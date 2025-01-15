@@ -24,14 +24,17 @@ class EventSeeder extends Seeder
         for ($i = 0; $i < $numberOfEvents; $i++) {
             $event = Event::create([
                 'name' => Str::random(10),
-                'image' => 'https://picsum.photos/seed/' . Str::random(10) . '/400/600',
+                'poster' => 'https://picsum.photos/seed/' . Str::random(10) . '/400/600',
                 'date' => Carbon::now()->subDays(rand(0, 10)),
-                'location' => Str::random(10),
+                'location' => json_encode([
+                    'address' => $faker->address, // Random address from Faker
+                    'lat' => $faker->latitude(3.1, 3.2), // Latitude in the range of Kuala Lumpur
+                    'lng' => $faker->longitude(101.5, 101.7), // Longitude in the range of Kuala Lumpur
+                ]),
                 'description' => Str::random(10),
                 'link_to_post' => Str::random(10),
                 'link_to_ticket' => Str::random(10),
             ]);
         }
     }
-
 }

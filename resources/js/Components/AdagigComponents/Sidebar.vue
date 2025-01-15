@@ -1,8 +1,7 @@
 <script setup>
 import { ref, Transition } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faCircleInfo, faClose, faHouse } from '@fortawesome/free-solid-svg-icons';
-import { faCalendar, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faCircleInfo, faClose, faHouse, faMusic, faPlay, faGuitar, faComments, faNewspaper, faUser, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { Link } from '@inertiajs/vue3'
 
 
@@ -54,6 +53,36 @@ defineExpose({
                             aria-expanded="true" aria-controls="users-accordion">
                             <FontAwesomeIcon :style="{ color: 'black' }" :icon="faCalendar" />
                             Events
+                        </a>
+                        <a href="#"
+                            class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
+                            aria-expanded="true" aria-controls="users-accordion">
+                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faMusic" />
+                            Releases
+                        </a>
+                        <a href="#"
+                            class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
+                            aria-expanded="true" aria-controls="users-accordion">
+                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faPlay" />
+                            AdaPlaylist
+                        </a>
+                        <a href="#"
+                            class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
+                            aria-expanded="true" aria-controls="users-accordion">
+                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faGuitar" />
+                            Bands
+                        </a>
+                        <a href="#"
+                            class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
+                            aria-expanded="true" aria-controls="users-accordion">
+                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faComments" />
+                            AdaSembang
+                        </a>
+                        <a href="#"
+                            class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
+                            aria-expanded="true" aria-controls="users-accordion">
+                            <FontAwesomeIcon :style="{ color: 'black' }" :icon="faNewspaper" />
+                            AdaCerita
                         </a>
                         <a href="#"
                             class="hs-accordion-toggle hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hs-accordion-active:text-white dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
