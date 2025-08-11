@@ -17,7 +17,7 @@ class RegistrationTest extends TestCase
             $this->markTestSkipped('Registration support is not enabled.');
         }
 
-        $response = $this->get('/register');
+        $response = $this->get('/signup');
 
         $response->assertStatus(200);
     }
@@ -28,7 +28,7 @@ class RegistrationTest extends TestCase
             $this->markTestSkipped('Registration support is enabled.');
         }
 
-        $response = $this->get('/register');
+        $response = $this->get('/signup');
 
         $response->assertStatus(404);
     }
@@ -39,15 +39,17 @@ class RegistrationTest extends TestCase
             $this->markTestSkipped('Registration support is not enabled.');
         }
 
-        $response = $this->post('/register', [
-            'name' => 'Test User',
+        $response = $this->post('/signup', [
+            'first_name' => 'Test',
+            'last_name' => 'User',
+            'username' => 'testuser',
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
-            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
+            'terms' => true,
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+        $response->assertSessionHas('success', 'Registration successful! Welcome to Adagig.');
     }
 }

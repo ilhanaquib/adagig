@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Laravel\Fortify\Http\Controllers\RegisteredUserController;
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -21,4 +23,15 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+});
+
+// Authentication routes
+Route::get('/signup', function () {
+    return Inertia::render('Auth/Signup');
+})->middleware(['guest'])->name('signup');
+Route::post('/signup', [RegisteredUserController::class, 'store'])
+    ->middleware(['guest'])
+    ->name('register');
+Route::get('/register', function () {
+    abort(404);
 });
