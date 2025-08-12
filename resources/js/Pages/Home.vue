@@ -1,0 +1,210 @@
+<script setup>
+import Navbar from '@/AdagigComponents/Navbar.vue';
+import { Head, Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
+
+const events = [
+    {
+        title: 'Music Fest 2025',
+        description: 'A night of amazing performances and great vibes.',
+        date: 'Aug 30, 2025',
+        venue: 'Madison Square Garden, NY',
+        image: '/images/poster1.png',
+        ticketUrl: 'https://tickets.com/musicfest',
+        detailsUrl: '/events/1'
+    },
+    {
+        title: 'Jazz Night',
+        description: 'Smooth jazz from world-class artists.',
+        date: 'Sep 15, 2025',
+        venue: 'Blue Note, NY',
+        image: '/images/poster2.png',
+        ticketUrl: 'https://tickets.com/jazznight',
+        detailsUrl: '/events/2'
+    }
+];
+
+const currentIndex = ref(0);
+
+const nextSlide = () => {
+    currentIndex.value = (currentIndex.value + 1) % events.length;
+};
+
+const prevSlide = () => {
+    currentIndex.value = (currentIndex.value - 1 + events.length) % events.length;
+};
+
+const goToSlide = (index) => {
+    currentIndex.value = index;
+};
+
+const otherEvents = [
+    { title: 'Indie Night', date: 'Sep 20', venue: 'Indie Hall', image: '/images/poster3.png' },
+    { title: 'Rock Fest', date: 'Oct 5', venue: 'Rock Arena', image: '/images/poster4.png' },
+    { title: 'Pop Vibes', date: 'Oct 15', venue: 'City Stadium', image: '/images/poster5.png' },
+    { title: 'EDM Blast', date: 'Nov 1', venue: 'Beachside', image: '/images/poster6.png' },
+    { title: 'Acoustic Evening', date: 'Nov 10', venue: 'Cozy Cafe', image: '/images/poster7.png' },
+    { title: 'Hip Hop Jam', date: 'Nov 20', venue: 'Urban Stage', image: '/images/poster8.png' }
+];
+
+const visibleCount = 5;
+const otherCarouselIndex = ref(0);
+
+const nextOtherCarousel = () => {
+    if (otherCarouselIndex.value < otherEvents.length - visibleCount) {
+        otherCarouselIndex.value++;
+    }
+};
+
+const prevOtherCarousel = () => {
+    if (otherCarouselIndex.value > 0) {
+        otherCarouselIndex.value--;
+    }
+};
+
+const startX = ref(null);
+
+const onTouchStart = (e) => {
+    startX.value = e.touches[0].clientX;
+};
+
+const onTouchEnd = (e) => {
+    if (startX.value === null) return;
+    const endX = e.changedTouches[0].clientX;
+    const deltaX = endX - startX.value;
+
+    if (Math.abs(deltaX) > 50) {
+        if (deltaX > 0) {
+            // swipe right -> prev slide
+            prevSlide();
+        } else {
+            // swipe left -> next slide
+            nextSlide();
+        }
+    }
+    startX.value = null;
+};
+</script>
+
+<template>
+
+    <Head title="Home" />
+    <Navbar />
+
+    <!-- Events  -->
+    <div class="w-full bg-center bg-cover relative overflow-hidden flex" :style="{
+        backgroundImage: `url(${events[currentIndex].image})`,
+        height: 'calc(100vh - 48px)'
+    }" @touchstart="onTouchStart" @touchend="onTouchEnd">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/80 pointer-events-none"></div>
+
+        <div class="relative z-10 flex justify-between w-full px-4 sm:px-8 md:px-16 mb-32">
+            <div class="flex flex-col justify-center text-white max-w-xl space-y-4">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold">
+                    {{ events[currentIndex].title }}
+                </h1>
+                <p class="text-sm sm:text-base md:text-lg">
+                    {{ events[currentIndex].description }}
+                </p>
+                <p class="text-xs sm:text-sm md:text-sm font-semibold">
+                    {{ events[currentIndex].date }} • {{ events[currentIndex].venue }}
+                </p>
+
+                <div class="flex space-x-3">
+                    <a :href="events[currentIndex].ticketUrl" target="_blank"
+                        class="bg-secondary text-primary px-3 py-1.5 rounded transition text-xs sm:text-sm md:text-base">Get
+                        Tickets</a>
+                    <Link :href="events[currentIndex].detailsUrl"
+                        class="bg-primary text-light px-3 py-1.5 rounded transition text-xs sm:text-sm md:text-base">
+                    More Details</Link>
+                </div>
+
+                <div class="flex md:hidden space-x-2">
+                    <button v-for="(event, index) in events" :key="index" @click="goToSlide(index)"
+                        class="w-3 h-3 rounded-full"
+                        :class="currentIndex === index ? 'bg-primary' : 'bg-accent'"></button>
+                </div>
+            </div>
+
+            <div class="pt-40 sm:pt-44 md:pt-52 flex flex-col items-center space-y-2">
+                <!-- Prev/Next Buttons: hidden on mobile and tablet -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <button @click="prevSlide"
+                        class="w-8 h-8 flex items-center justify-center bg-primary hover:bg-secondary text-secondary hover:text-primary rounded-full">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button @click="nextSlide"
+                        class="w-8 h-8 flex items-center justify-center bg-primary hover:bg-secondary text-secondary hover:text-primary rounded-full">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                </div>
+
+                <!-- Paginator -->
+                <div class="hidden md:flex space-x-2">
+                    <button v-for="(event, index) in events" :key="index" @click="goToSlide(index)"
+                        class="w-3 h-3 rounded-full"
+                        :class="currentIndex === index ? 'bg-primary' : 'bg-accent'"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM TRANSPARENT CAROUSEL -->
+        <div class="absolute bottom-0 left-0 w-full px-4 sm:px-6 pb-4 z-20">
+            <!-- Filters -->
+            <div class="flex justify-between items-center mb-2">
+                <div class="flex space-x-2 text-xs sm:text-sm">
+                    <button class="px-2 py-1 text-white rounded  transition">
+                        This Month
+                    </button>
+                    <button class="px-2 py-1 text-white rounded transition">
+                        This Week
+                    </button>
+                    <button class="px-2 py-1 text-white rounded  transition">
+                        Coming Soon
+                    </button>
+                </div>
+                <a href="/events" class="text-white hover:underline text-xs sm:text-sm">More →</a>
+            </div>
+
+            <!-- Desktop Carousel: hidden on mobile/tablet -->
+            <div class="relative hidden md:block">
+                <div class="overflow-hidden">
+                    <div class="flex transition-transform duration-500"
+                        :style="{ transform: `translateX(-${otherCarouselIndex * (100 / visibleCount)}%)` }">
+                        <div v-for="(event, index) in otherEvents" :key="index" class="min-w-[20%] px-1.5">
+                            <div class="bg-primary p-2 rounded-lg text-accent hover:bg-secondary transition">
+                                <img :src="event.image" alt="" class="w-full h-24 object-cover rounded mb-1.5" />
+                                <h3 class="text-xs font-bold truncate">{{ event.title }}</h3>
+                                <p class="text-[10px] truncate">{{ event.date }} • {{ event.venue }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prev/Next Buttons: hidden on mobile/tablet -->
+                <button @click="prevOtherCarousel"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-7 h-7 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm">chevron_left</span>
+                </button>
+                <button @click="nextOtherCarousel"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-7 h-7 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </button>
+            </div>
+
+            <!-- Mobile/Tablet Grid: hidden on desktop -->
+            <div class="grid grid-cols-4 gap-2 md:hidden mt-2">
+                <div v-for="(event, index) in otherEvents.slice(0, 16)" :key="'grid-' + index"
+                    class="bg-primary p-2 rounded-lg text-light hover:bg-secondary transition">
+                    <img :src="event.image" alt="" class="w-full h-16 object-cover rounded mb-1" />
+                    <h3 class="text-xs font-bold truncate">{{ event.title }}</h3>
+                    <p class="text-[9px] truncate">{{ event.date }} • {{ event.venue }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Musics -->
+
+    <!-- Artists -->
+</template>

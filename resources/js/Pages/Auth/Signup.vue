@@ -1,7 +1,5 @@
 <template>
 
-    <!-- TODO: Center eye icon -->
-
     <Head title="Sign Up" />
 
     <div class="min-h-screen h-screen flex font-sans overflow-hidden flex-col md:flex-row">
@@ -35,7 +33,7 @@
                                 autocomplete="given-name"
                                 class="block w-full rounded-md border-gray-300 focus:border-primary focus:ring focus:ring-primary/30" />
                         </div>
-                        
+
                         <div class="w-full md:w-1/2 relative group">
                             <label for="last_name"
                                 class="block text-sm font-medium text-gray-700 mb-1 flex items-center justify-between">
@@ -80,37 +78,52 @@
                             class="block w-full rounded-md border-gray-300 focus:border-primary focus:ring focus:ring-primary/30" />
                     </div>
 
-                    <div class="mb-4 relative">
+                    <!-- Password -->
+                    <div class="mb-4">
                         <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                        <input :type="showPassword ? 'text' : 'password'" id="password" v-model="form.password" required
-                            autocomplete="new-password"
-                            class="block w-full rounded-md border-gray-300 focus:border-primary focus:ring focus:ring-primary/30 pr-10" />
-                        <button type="button" @click="showPassword = !showPassword"
-                            class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary focus:outline-none"
-                            tabindex="-1" aria-label="Toggle password visibility">
-                            <span class="material-symbols-outlined select-none">
-                                {{ showPassword ? 'visibility_off' : 'visibility' }}
-                            </span>
-                        </button>
+                        <div class="relative flex items-center">
+                            <input :type="showPassword ? 'text' : 'password'" id="password" v-model="form.password"
+                                required autocomplete="new-password"
+                                class="block w-full rounded-md border-gray-300 focus:border-primary focus:ring focus:ring-primary/30 pr-10" />
+                            <button type="button" @click="showPassword = !showPassword"
+                                class="absolute right-2 text-gray-400 hover:text-primary focus:outline-none flex items-center justify-center"
+                                tabindex="-1" aria-label="Toggle password visibility">
+                                <span class="material-symbols-outlined select-none leading-none">
+                                    {{ showPassword ? 'visibility_off' : 'visibility' }}
+                                </span>
+                            </button>
+                        </div>
+
+                        <!-- Password requirement note -->
                         <p class="text-xs text-gray-500 mt-1">
                             Must be at least 8 characters, include 1 uppercase letter, 1 number, and 1 special
                             character.
                         </p>
+
+                        <!-- Live validation warning -->
+                        <p v-if="form.password && !isPasswordValid" class="text-xs text-red-500 mt-1">
+                            Password does not meet the requirements.
+                        </p>
+
                     </div>
 
-                    <div class="mb-4 relative">
-                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Confirm
-                            Password</label>
-                        <input :type="showPasswordConfirmation ? 'text' : 'password'" id="password_confirmation"
-                            v-model="form.password_confirmation" required autocomplete="new-password"
-                            class="block w-full rounded-md border-gray-300 focus:border-primary focus:ring focus:ring-primary/30 pr-10" />
-                        <button type="button" @click="showPasswordConfirmation = !showPasswordConfirmation"
-                            class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary focus:outline-none"
-                            tabindex="-1" aria-label="Toggle confirm password visibility">
-                            <span class="material-symbols-outlined select-none">
-                                {{ showPasswordConfirmation ? 'visibility_off' : 'visibility' }}
-                            </span>
-                        </button>
+                    <!-- Confirm Password -->
+                    <div class="mb-4">
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">
+                            Confirm Password
+                        </label>
+                        <div class="relative flex items-center">
+                            <input :type="showPasswordConfirmation ? 'text' : 'password'" id="password_confirmation"
+                                v-model="form.password_confirmation" required autocomplete="new-password"
+                                class="block w-full rounded-md border-gray-300 focus:border-primary focus:ring focus:ring-primary/30 pr-10" />
+                            <button type="button" @click="showPasswordConfirmation = !showPasswordConfirmation"
+                                class="absolute right-2 text-gray-400 hover:text-primary focus:outline-none flex items-center justify-center"
+                                tabindex="-1" aria-label="Toggle confirm password visibility">
+                                <span class="material-symbols-outlined select-none leading-none">
+                                    {{ showPasswordConfirmation ? 'visibility_off' : 'visibility' }}
+                                </span>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="flex items-center mb-6">
@@ -118,13 +131,19 @@
                             class="rounded border-gray-300 text-primary shadow-sm focus:ring-primary" />
                         <label for="terms" class="ml-2 block text-sm text-gray-700">
                             I agree to the
-                            <a href="/terms" target="_blank" class="underline text-primary hover:text-secondary">Terms
-                                and Conditions</a>
+                            <Link href="/terms" target="_blank" class="underline text-primary hover:text-secondary">
+                            Terms
+                            and Conditions</Link>
                             and
-                            <a href="/privacy" target="_blank"
-                                class="underline text-primary hover:text-secondary">Privacy Policy</a>
+                            <Link href="/privacy" target="_blank" class="underline text-primary hover:text-secondary">
+                            Privacy Policy</Link>
                         </label>
                     </div>
+                    <p class="text-sm text-center mt-4">
+                        <Link href="/signin" class="underline text-primary hover:text-secondary">
+                        Have an account? Sign In
+                        </Link>
+                    </p>
                     <p v-if="form.password && form.password_confirmation && form.password !== form.password_confirmation"
                         class="text-xs text-red-500 mt-1">
                         Passwords do not match.
@@ -157,7 +176,7 @@
 
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 
 const form = useForm({
     first_name: '',
@@ -171,6 +190,11 @@ const form = useForm({
 
 const showPassword = ref(false);
 const showPasswordConfirmation = ref(false);
+
+const isPasswordValid = computed(() => {
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    return regex.test(form.password);
+});
 
 // Responsive: Detect tablet portrait mode
 const isTabletPortrait = ref(false);
@@ -194,6 +218,7 @@ onBeforeUnmount(() => {
 });
 
 const submit = () => {
+    form.terms = form.terms ? '1' : '';
     form.post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });

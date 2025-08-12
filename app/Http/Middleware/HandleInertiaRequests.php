@@ -37,7 +37,16 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            //
+            [
+                'auth' => [
+                    'user' => $request->user() ? $request->user()->only('id', 'first_name', 'last_name', 'username', 'email') : null,
+                    'can' => [
+                        'logout' => $request->user() !== null,
+                        'register' => config('fortify.views'),
+                    ],
+                ],
+                'errors' => $request->session()->get('errors') ? $request->session()->get('errors')->getBag('default')->getMessages() : [],
+            ]
         ];
     }
 }
