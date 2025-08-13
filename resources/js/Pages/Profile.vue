@@ -7,7 +7,7 @@
             <Navbar />
 
             <!-- Profile Header -->
-            <div class="w-full relative">
+            <div class="w-full relative px-40">
 
                 <!-- Wallpaper -->
                 <div class="h-24 sm:h-28 w-full">
@@ -15,7 +15,7 @@
                 </div>
 
                 <!-- Info Section -->
-                <div class="bg-accent flex items-center px-6 sm:px-10 md:px-40 py-4 relative">
+                <div class="bg-accent flex items-center px-6 sm:px-10 md:px-40 py-4 relative rounded-b-lg">
 
                     <!-- Profile Picture -->
                     <div class="absolute -top-10 left-6 sm:left-10 md:left-40 bg-light rounded-full p-0.5 z-10">
@@ -74,7 +74,7 @@
 
                     <!-- Right: Add -->
                     <div class="m-2 flex-shrink-0">
-                        <Link href="#"
+                        <Link href="/add"
                             class="w-8 h-8 flex items-center justify-center bg-secondary rounded-md hover:opacity-80 transition-colors">
                         <span class="material-symbols-outlined text-primary text-2xl">add</span>
                         </Link>

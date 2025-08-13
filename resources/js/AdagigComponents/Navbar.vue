@@ -28,7 +28,8 @@ const mobileOpen = ref(false)
 
                 <!-- Username + Icon (Desktop) -->
                 <div class="hidden md:flex items-center space-x-3" v-if="username">
-                    <span>{{ username }}</span>
+                    <Link href="/profile"><span>{{ username }}</span>
+                    </Link>
                     <span class="material-symbols-outlined">person</span>
                 </div>
 

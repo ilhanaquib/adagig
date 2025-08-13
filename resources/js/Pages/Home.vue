@@ -126,7 +126,7 @@ const onTouchEnd = (e) => {
                 </div>
             </div>
 
-            <div class="pt-40 sm:pt-44 md:pt-52 flex flex-col items-center space-y-2">
+            <div class="hidden md:flex pt-80 flex flex-col items-center space-y-2">
                 <!-- Prev/Next Buttons: hidden on mobile and tablet -->
                 <div class="hidden md:flex items-center space-x-4">
                     <button @click="prevSlide"
@@ -163,7 +163,7 @@ const onTouchEnd = (e) => {
                         Coming Soon
                     </button>
                 </div>
-                <a href="/events" class="text-white hover:underline text-xs sm:text-sm">More →</a>
+                <Link href="/events" class="text-white hover:underline text-xs sm:text-sm">More →</Link>
             </div>
 
             <!-- Desktop Carousel: hidden on mobile/tablet -->
@@ -173,7 +173,7 @@ const onTouchEnd = (e) => {
                         :style="{ transform: `translateX(-${otherCarouselIndex * (100 / visibleCount)}%)` }">
                         <div v-for="(event, index) in otherEvents" :key="index" class="min-w-[20%] px-1.5">
                             <div class="bg-primary p-2 rounded-lg text-accent hover:bg-secondary transition">
-                                <img :src="event.image" alt="" class="w-full h-24 object-cover rounded mb-1.5" />
+                                <img :src="event.image" alt="" class="w-full h-52 object-cover rounded mb-1.5" />
                                 <h3 class="text-xs font-bold truncate">{{ event.title }}</h3>
                                 <p class="text-[10px] truncate">{{ event.date }} • {{ event.venue }}</p>
                             </div>
