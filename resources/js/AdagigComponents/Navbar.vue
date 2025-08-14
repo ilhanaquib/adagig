@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
+import logo from '/public/images/textlogo.png';
 
 const page = usePage()
 const username = page.props.auth.user?.username
@@ -16,7 +17,7 @@ const mobileOpen = ref(false)
 
                 <!-- Logo -->
                 <Link href="/" class="flex items-center">
-                <img src="images/textlogo.png" class="w-24" alt="Logo" />
+                <img :src="logo" class="w-24" alt="Logo" />
                 </Link>
 
                 <!-- Desktop Links -->

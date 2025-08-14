@@ -12,13 +12,13 @@ class EventController extends Controller
     public function index(Request $request)
     {
         $events = Event::with('media')->get()->map(function ($event) {
-            //  dd($event->getFirstMediaUrl('events'));
+            // dd($event->getFirstMediaUrl('events'));
             return [
+                'id' => $event->id,
                 'title'    => $event->name,
                 'date'     => $event->date->toDateString(),
                 'venue'    => $event->location,
-                'category' => $event->category ?? 'Uncategorized', // adjust if you have a category column
-                
+                'category' => $event->category ?? 'Uncategorized',
                 'image'     => $event->getFirstMediaUrl('events')
             ];
         });
@@ -69,9 +69,21 @@ class EventController extends Controller
     // Display the specified event
     public function show($id)
     {
-        $event = Event::findOrFail($id);
+        $event = Event::with('media')->findOrFail($id);
 
-        return view('events.show', compact('event'));
+        return inertia('EventShow', [
+            'event' => [
+                'id'         => $event->id,
+                'title'       => $event->name,
+                'date'        => $event->date,
+                'venue'       => $event->location,
+                'category'    => $event->category ?? 'Uncategorized',
+                'image'       => $event->getFirstMediaUrl('events'),
+                'description' => $event->description,
+                'ticket_url'  => $event->ticket_url,
+                'ticket_price' => $event->ticket_price,
+            ]
+        ]);
     }
 
     // Show the form for editing the specified event

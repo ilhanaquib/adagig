@@ -7,10 +7,10 @@
             <Navbar />
 
             <!-- Profile Header -->
-            <div class="w-full relative px-40">
+            <div class="w-full relative px-56">
 
                 <!-- Wallpaper -->
-                <div class="h-24 sm:h-28 w-full">
+                <div class="h-56 w-full">
                     <img src="/images/wallpaper.jpg" alt="Wallpaper" class="w-full h-full object-cover" />
                 </div>
 
@@ -58,7 +58,7 @@
             </div>
 
             <!-- content -->
-            <div class="pt-4 px-4 sm:px-8 lg:px-40">
+            <div class="pt-4 px-4 sm:px-8 lg:px-56">
                 <!-- content navbar -->
                 <div
                     class="bg-primary flex flex-wrap sm:flex-row items-center justify-between px-4 sm:px-6 rounded-t-lg overflow-x-auto">

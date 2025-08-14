@@ -1,13 +1,12 @@
 <script setup>
 import Navbar from '@/AdagigComponents/Navbar.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 
 const props = defineProps({
     events: Array
 });
 
-// Use the events from props instead of hardcoded
 const events = ref(props.events);
 
 const searchQuery = ref('');
@@ -76,16 +75,16 @@ const filteredEvents = computed(() => {
 
             <div class="grid grid-cols-2 md:grid-cols-4  gap-3">
                 <div v-for="(event, index) in filteredEvents" :key="index"
-                    class="relative bg-primary rounded-lg shadow overflow-hidden group cursor-pointer">
-                    <img :src="event.image" alt="" class="w-full h-full object-cover" />
-                    <!-- Event details sliding up -->
+                    class="relative bg-primary rounded-lg shadow overflow-hidden group">
+                    <Link :href="`/events/${event.id}`">
                     <div
                         class="absolute bottom-0 left-0 right-0 bg-primary text-secondary p-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
                         <h3 class="text-md font-semibold">{{ event.title }}</h3>
                         <p class="text-xs text-gray-500">{{ event.date }} • {{ event.venue }}</p>
-                        <!-- Uncomment if you want category -->
                         <!-- <p class="mt-0.5 text-[10px] text-gray-400">{{ event.category }}</p> -->
                     </div>
+                    <img :src="event.image" alt="" class="w-full h-full object-cover" />
+                    </Link>
                 </div>
             </div>
         </div>

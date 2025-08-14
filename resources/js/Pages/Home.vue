@@ -3,26 +3,11 @@ import Navbar from '@/AdagigComponents/Navbar.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
-const events = [
-    {
-        title: 'Music Fest 2025',
-        description: 'A night of amazing performances and great vibes.',
-        date: 'Aug 30, 2025',
-        venue: 'Madison Square Garden, NY',
-        image: '/images/poster1.png',
-        ticketUrl: 'https://tickets.com/musicfest',
-        detailsUrl: '/events/1'
-    },
-    {
-        title: 'Jazz Night',
-        description: 'Smooth jazz from world-class artists.',
-        date: 'Sep 15, 2025',
-        venue: 'Blue Note, NY',
-        image: '/images/poster2.png',
-        ticketUrl: 'https://tickets.com/jazznight',
-        detailsUrl: '/events/2'
-    }
-];
+const props = defineProps({
+    events: Array
+});
+
+const events = ref(props.events);
 
 const currentIndex = ref(0);
 
@@ -100,22 +85,22 @@ const onTouchEnd = (e) => {
 
         <div class="relative z-10 flex justify-between w-full px-4 sm:px-8 md:px-16 mb-32">
             <div class="flex flex-col justify-center text-white max-w-xl space-y-4">
-                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold">
+                <h1 class="text-3xl text-light md:text-5xl font-bold">
                     {{ events[currentIndex].title }}
                 </h1>
-                <p class="text-sm sm:text-base md:text-lg">
-                    {{ events[currentIndex].description }}
-                </p>
-                <p class="text-xs sm:text-sm md:text-sm font-semibold">
-                    {{ events[currentIndex].date }} • {{ events[currentIndex].venue }}
+                <p class="text-lg text-light font-semibold">
+                    {{ new Date(events[currentIndex].date).toLocaleDateString('en-GB', {
+                        day: '2-digit',
+                        month: 'long', year: 'numeric'
+                    }) }} • {{ events[currentIndex].location }}
                 </p>
 
-                <div class="flex space-x-3">
-                    <a :href="events[currentIndex].ticketUrl" target="_blank"
-                        class="bg-secondary text-primary px-3 py-1.5 rounded transition text-xs sm:text-sm md:text-base">Get
+                <div class="flex space-x-3 font-bold text-xl">
+                    <a :href="events[currentIndex].ticket_url" target="_blank"
+                        class="bg-secondary text-primary px-3 py-1.5 rounded transition ">Get
                         Tickets</a>
-                    <Link :href="events[currentIndex].detailsUrl"
-                        class="bg-primary text-light px-3 py-1.5 rounded transition text-xs sm:text-sm md:text-base">
+                    <Link :href="`/events/${events[currentIndex].id}`"
+                        class="bg-primary text-secondary px-3 py-1.5 rounded transition ">
                     More Details</Link>
                 </div>
 
@@ -152,7 +137,7 @@ const onTouchEnd = (e) => {
         <div class="absolute bottom-0 left-0 w-full px-4 sm:px-6 pb-4 z-20">
             <!-- Filters -->
             <div class="flex justify-between items-center mb-2">
-                <div class="flex space-x-2 text-xs sm:text-sm">
+                <div class="flex space-x-2 text-lg">
                     <button class="px-2 py-1 text-white rounded  transition">
                         This Month
                     </button>
@@ -171,12 +156,15 @@ const onTouchEnd = (e) => {
                 <div class="overflow-hidden">
                     <div class="flex transition-transform duration-500"
                         :style="{ transform: `translateX(-${otherCarouselIndex * (100 / visibleCount)}%)` }">
-                        <div v-for="(event, index) in otherEvents" :key="index" class="min-w-[20%] px-1.5">
-                            <div class="bg-primary p-2 rounded-lg text-accent hover:bg-secondary transition">
+                        <div v-for="(event, index) in events" :key="index" class="min-w-[20%] px-1.5">
+                            <Link :href="`/events/${events[currentIndex].id}`">
+                            <div
+                                class="bg-primary p-2 rounded-lg text-secondary hover:bg-secondary hover:text-light transition">
                                 <img :src="event.image" alt="" class="w-full h-52 object-cover rounded mb-1.5" />
-                                <h3 class="text-xs font-bold truncate">{{ event.title }}</h3>
-                                <p class="text-[10px] truncate">{{ event.date }} • {{ event.venue }}</p>
+                                <h3 class="text-xs font-bold truncate ">{{ event.title }}</h3>
+                                <p class="text-[10px] truncate">{{ event.date }} • {{ event.location }}</p>
                             </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -194,11 +182,14 @@ const onTouchEnd = (e) => {
 
             <!-- Mobile/Tablet Grid: hidden on desktop -->
             <div class="grid grid-cols-4 gap-2 md:hidden mt-2">
-                <div v-for="(event, index) in otherEvents.slice(0, 16)" :key="'grid-' + index"
+                <div v-for="(event, index) in events.slice(0, 16)" :key="'grid-' + index"
                     class="bg-primary p-2 rounded-lg text-light hover:bg-secondary transition">
+                    <Link :href="`/events/${events[currentIndex].id}`">
+
                     <img :src="event.image" alt="" class="w-full h-16 object-cover rounded mb-1" />
                     <h3 class="text-xs font-bold truncate">{{ event.title }}</h3>
                     <p class="text-[9px] truncate">{{ event.date }} • {{ event.venue }}</p>
+                    </Link>
                 </div>
             </div>
         </div>
