@@ -5,6 +5,7 @@ import logo from '/public/images/textlogo.png';
 
 const page = usePage()
 const username = page.props.auth.user?.username
+const userid = page.props.auth.user?.id
 
 const mobileOpen = ref(false)
 </script>
@@ -29,7 +30,7 @@ const mobileOpen = ref(false)
 
                 <!-- Username + Icon (Desktop) -->
                 <div class="hidden md:flex items-center space-x-3" v-if="username">
-                    <Link href="/profile"><span>{{ username }}</span>
+                    <Link :href="`/profile/${userid}`"><span>{{ username }}</span>
                     </Link>
                     <span class="material-symbols-outlined">person</span>
                 </div>

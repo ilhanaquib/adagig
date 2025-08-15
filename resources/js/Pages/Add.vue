@@ -8,9 +8,9 @@ import { useForm } from '@inertiajs/vue3';
 const selectedCategory = ref('Post');
 
 const form = useForm({
-    category: '',
+    category: selectedCategory.value,
     // Post
-    postTitle: '',
+    caption: '',
     postImage: null,
     postImagePreview: null,
     // Event
@@ -53,7 +53,7 @@ function handleDrop(event, type) {
 
 function submit() {
     // Trim fields
-    form.postTitle = form.postTitle.trim();
+    form.caption = form.caption.trim();
     form.eventName = form.eventName.trim();
 
     // Determine the route
@@ -104,7 +104,7 @@ function submit() {
                     <!-- Caption -->
                     <div class="flex flex-col items-center w-full md:w-64">
                         <label class="block mb-2 font-semibold">Write Something!</label>
-                        <textarea v-model="form.postTitle" placeholder="Write your caption here..." rows="5"
+                        <textarea v-model="form.caption" placeholder="Write your caption here..." rows="5"
                             class="w-full border rounded px-3 py-2 resize-y"></textarea>
                     </div>
 
