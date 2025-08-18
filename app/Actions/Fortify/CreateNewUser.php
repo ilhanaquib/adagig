@@ -36,12 +36,16 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => ['accepted'],
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'first_name' => $input['first_name'],
             'last_name' => $input['last_name'],
             'username' => $input['username'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        $user->assignRole('fan');
+
+        return $user;
     }
 }

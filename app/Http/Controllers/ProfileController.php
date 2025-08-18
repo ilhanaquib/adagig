@@ -5,22 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
-    public function show()
+    public function me()
     {
         /** @var \App\Models\User $user **/
         $user = Auth::user();
         $profile = $user->profile ?? new Profile();
-        $posts = $user->posts()->latest()->get();
 
         return inertia('Profile', [
             'user' => [
+                'id' => $user->id,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'username' => $user->username,
+                'roles' => $user->getRoleNames(),
             ],
             'profile' => [
                 'bio' => $profile->bio,
@@ -36,8 +38,100 @@ class ProfileController extends Controller
                     'caption' => $post->caption,
                     'image' => $post->getFirstMediaUrl('posts') ?: '/images/default-post.png',
                 ]),
+
+            'bands' => $user->bands()
+                ->with('media')
+                ->get()
+                ->map(fn($band) => [
+                    'id' => $band->id,
+                    'name' => $band->name,
+                    'logo' => $band->getFirstMediaUrl('Band logo') ?: '/images/band-placeholder.png',
+                ]),
+
+            'organisations' => $user->organisations()
+                ->with('media')
+                ->get()
+                ->map(fn($org) => [
+                    'id' => $org->id,
+                    'name' => $org->name,
+                    'logo' => $org->getFirstMediaUrl('Organisation logo') ?: '/images/org-placeholder.png',
+                ]),
+
+            'authUser' => [
+                'id' => $user->id,
+                'username' => $user->username,
+            ],
+
+            'isFollowing' => false, // can't follow yourself
+
+            'followersCount' => $user->followers()->count(),
+            'followingCount' => $user->following()->count(),
         ]);
     }
+
+
+    public function show(User $user)
+    {
+        /** @var \App\Models\User $authUser **/
+        $profile = $user->profile ?? new Profile();
+        $authUser = Auth::user();
+        /** @disregard P1013 Undefined method 'following'. */
+
+        return inertia('Profile', [
+            'user' => [
+                'id' => $user->id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'username' => $user->username,
+                'roles' => $user->getRoleNames(),
+            ],
+            'profile' => [
+                'bio' => $profile->bio,
+                'location' => $profile->location,
+                'links' => $profile->links,
+                'profile_picture' => $profile->getFirstMediaUrl('profile_picture') ?: '/images/default-profile.png',
+                'wallpaper' => $profile->getFirstMediaUrl('wallpaper') ?: '/images/default-wallpaper.jpg',
+            ],
+            'posts' => $user->posts()
+                ->latest()
+                ->get()
+                ->map(fn($post) => [
+                    'caption' => $post->caption,
+                    'image' => $post->getFirstMediaUrl('posts') ?: '/images/default-post.png',
+                ]),
+            'bands' => $user->bands()
+                ->with('media')
+                ->get()
+                ->map(fn($band) => [
+                    'id' => $band->id,
+                    'name' => $band->name,
+                    'logo' => $band->getFirstMediaUrl('Band logo') ?: '/images/band-placeholder.png',
+                ]),
+
+            'organisations' => $user->organisations()
+                ->with('media')
+                ->get()
+                ->map(fn($org) => [
+                    'id' => $org->id,
+                    'name' => $org->name,
+                    'logo' => $org->getFirstMediaUrl('Organisation logo') ?: '/images/org-placeholder.png',
+                ]),
+
+            'authUser' => $authUser ? [
+                'id' => $authUser->id,
+                'username' => $authUser->username,
+            ] : null,
+
+            'isFollowing' => $authUser
+                ? $authUser->following()->where('followed_id', $user->id)->exists()
+                : false,
+
+            // 👇 counts
+            'followersCount' => $user->followers()->count(),
+            'followingCount' => $user->following()->count(),
+        ]);
+    }
+
 
 
     public function update(Request $request)

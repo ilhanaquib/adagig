@@ -29,9 +29,15 @@
                         <!-- Text Info -->
                         <div class="pt-8 sm:pt-0 sm:pl-24 md:pl-28 lg:pl-32">
                             <div>
-                                <h1 class="text-light font-bold text-base sm:text-lg md:text-xl leading-tight">
-                                    {{ user.first_name }} {{ user.last_name }}
-                                </h1>
+                                <div class="flex items-center gap-2">
+                                    <h1 class="text-light font-bold text-base sm:text-lg md:text-xl leading-tight">
+                                        {{ user.first_name }} {{ user.last_name }}
+                                    </h1>
+                                    <div class="rounded-xl bg-primary text-secondary font-bold px-2 py-0.5 text-xs">
+                                        {{ user.roles.join(', ') }}
+                                    </div>
+                                </div>
+
                                 <h2 class="text-light text-xs sm:text-sm font-medium">@{{ user.username }}</h2>
                             </div>
 
@@ -42,10 +48,9 @@
 
                             <!-- Following / Followers -->
                             <div class="flex flex-wrap gap-x-3 mt-1 text-light text-xs sm:text-sm">
-                                <div><span class="font-bold">120</span> Following</div>
-                                <div><span class="font-bold">980</span> Followers</div>
+                                <div><span class="font-bold">{{ page.props.followingCount }}</span> Following</div>
+                                <div><span class="font-bold">{{ page.props.followersCount }}</span> Followers</div>
                             </div>
-
                             <!-- Location & Links -->
                             <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-light text-xs sm:text-sm">
                                 <div v-if="profile.location" class="flex items-center space-x-1">
@@ -61,11 +66,52 @@
                     </div>
 
                     <!-- Right section (Edit button) -->
-                    <div class="sm:self-start">
-                        <button @click="showEditModal = true"
-                            class="bg-primary text-secondary text-xs font-bold sm:text-sm px-3 py-1 rounded hover:bg-secondary hover:text-primary transition w-full sm:w-auto">
-                            Edit
-                        </button>
+                    <div class="flex flex-col ">
+                        <!-- Edit / Follow Button (right aligned) -->
+                        <div class="self-end">
+                            <!-- Edit button if it’s my profile -->
+                            <button v-if="authUser && user.id === authUser.id" @click="showEditModal = true"
+                                class="bg-primary text-secondary text-xs font-bold sm:text-sm px-3 py-1 rounded hover:bg-secondary hover:text-primary transition">
+                                Edit
+                            </button>
+
+                            <!-- Follow/Following if viewing another profile -->
+                            <button v-else-if="authUser" @click="following ? unfollow() : follow()"
+                                class="bg-primary text-secondary text-xs font-bold sm:text-sm px-3 py-1 rounded hover:bg-secondary hover:text-primary transition">
+                                {{ following ? 'Following' : 'Follow' }}
+                            </button>
+                        </div>
+
+                        <!-- Group -->
+                        <div class="mt-4 rounded-lg text-secondary">
+                            <div class="flex flex-wrap gap-2 max-h-32 overflow-y-auto scrollbar-hide">
+
+                                <!-- Bands -->
+                                <template v-for="band in bands" :key="band.id">
+                                    <span
+                                        class="px-3 py-1 rounded-full bg-secondary text-primary text-xs font-semibold flex items-center gap-2">
+                                        <img :src="band.logo" alt="Band Logo" class="w-4 h-4 rounded-full" />
+                                        {{ band.name }}
+                                    </span>
+                                </template>
+
+                                <!-- Organisations -->
+                                <template v-for="org in organisations" :key="org.id">
+                                    <span
+                                        class="px-3 py-1 rounded-full bg-secondary text-primary text-xs font-semibold flex items-center gap-2">
+                                        <img :src="org.logo" alt="Organisation Logo" class="w-4 h-4 rounded-full" />
+                                        {{ org.name }}
+                                    </span>
+                                </template>
+
+                                <!-- Add button -->
+                                <button @click="showGroupModal = true"
+                                    class="px-3 py-1 rounded-full bg-secondary text-primary text-xs font-semibold hover:bg-primary hover:text-secondary transition">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div v-if="showEditModal"
@@ -74,6 +120,19 @@
                             <ProfileUpdate @close="showEditModal = false" />
                             <div class="mt-4 text-right">
                                 <button @click="showEditModal = false"
+                                    class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="showGroupModal"
+                        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div class="bg-white rounded-lg p-6 w-full max-w-lg shadow-lg">
+                            <AddGroup @close="showGroupModal = false" />
+                            <div class="mt-4 text-right">
+                                <button @click="showGroupModal = false"
                                     class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
                                     Close
                                 </button>
@@ -149,17 +208,36 @@
 </template>
 
 <script setup>
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, usePage, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import Navbar from '@/AdagigComponents/Navbar.vue';
 import ProfileUpdate from './ProfileUpdate.vue';
+import AddGroup from '@/AdagigComponents/AddGroup.vue';
 
 const page = usePage()
 const user = page.props.user
 const profile = page.props.profile
 const posts = page.props.posts || []
+const bands = page.props.bands || []
+const organisations = page.props.organisations || []
+const following = ref(page.props.isFollowing)
+const authUser = page.props.authUser // logged-in user (or null if guest)
 
 const showEditModal = ref(false)
+const showGroupModal = ref(false)
+
+const follow = () => {
+    router.post(`/users/${user.id}/follow`, {}, {
+        onSuccess: () => following.value = true
+    })
+}
+
+const unfollow = () => {
+    router.delete(`/users/${user.id}/unfollow`, {
+        onSuccess: () => following.value = false
+    })
+}
+
 
 const shortLink = (url) => {
     if (!url) return ''

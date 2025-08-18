@@ -1,15 +1,19 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BandController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
-use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 
 Route::get('/', function () {
@@ -56,8 +60,13 @@ Route::middleware([
     'verified',
 ])->group(function () {
     // User
-    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile', [ProfileController::class, 'me'])->name('profile.me');
     Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/users/{user}/follow', [FollowController::class, 'store'])
+        ->name('users.follow');
+    Route::delete('/users/{user}/unfollow', [FollowController::class, 'destroy'])
+        ->name('users.unfollow');
+
 
     // submission 
     Route::get('/add', function () {
@@ -69,11 +78,33 @@ Route::middleware([
     Route::get('/events/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+
+    // Groups
+    Route::get('/group/create', [GroupController::class, 'create'])->name('group.create');
+    Route::post('/group/store', [GroupController::class, 'store'])->name('group.store');
+    Route::post('/bands', [BandController::class, 'store'])->name('bands.store');
+    Route::get('/bands/me', [BandController::class, 'me'])->name('bands.me');
+    Route::get('/organisations/me', [OrganisationController::class, 'me'])->name('organisations.me');
 });
 
 // Navigation routes
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
+// Users routes
+Route::get('/users/search', [UserController::class, 'search'])->name('api.users.search');
+
+
 // Event routes
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
+
+// Profile routes
+Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile.show');
+
+// Band routes
+Route::get('/bands', [BandController::class, 'index'])->name('bands.index');
+Route::get('/bands/{band:name}', [BandController::class, 'show'])->name('bands.show');
+
+// Organisation routes
+Route::get('/organisations', [OrganisationController::class, 'index'])->name('organisations.index');
+Route::get('/organisations/{organisation:name}', [OrganisationController::class, 'show'])->name('organisations.show');
